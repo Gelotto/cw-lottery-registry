@@ -20,7 +20,7 @@ case $NETWORK in
     CHAIN_ID=juno-1
     DENOM=ujuno
     ;;
-  devnet)
+  *)
     NODE="http://localhost:26657"
     CHAIN_ID=testing
     DENOM=ujunox
@@ -49,8 +49,8 @@ do_something() {
 }
 
 
-get_something() {
-  query='{"get_something":{}}'
+get_active_lotteries() {
+  query='{"get_active_lotteries":{"offset": 0, "limit": 10}}'
   flags="--chain-id $CHAIN_ID --output json --node $NODE"
   echo junod query wasm contract-state smart $CONTRACT_ADDR "$query" $flags
   response=$(junod query wasm contract-state smart $CONTRACT_ADDR "$query" $flags)
@@ -64,7 +64,7 @@ case $CMD in
   do-something)
     do_something $1 $2
     ;;
-  get-something) 
-    get_something
+  get-active-lotteries) 
+    get_active_lotteries
     ;;
 esac

@@ -261,7 +261,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "cw_contract_template"
+name = "cw_lottery_registry"
 version = "0.14.0"
 dependencies = [
  "cosmwasm-schema",

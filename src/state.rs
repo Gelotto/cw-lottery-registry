@@ -1,27 +1,36 @@
 use crate::error::ContractError;
-use crate::msg::{InstantiateMsg};
-use cosmwasm_std::{DepsMut, Env, MessageInfo};
-use cw_storage_plus::{Item};
+use crate::lottery::Lottery;
+use crate::msg::InstantiateMsg;
+use cosmwasm_std::{Addr, DepsMut, Env, MessageInfo};
+use cw_storage_plus::{Item, Map};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct Something {
-  pub value: Option<String>,
+pub struct Metadata {
+  pub active_lottery_count: u32,
+  pub closed_lottery_count: u32,
 }
 
-pub const SOMETHING: Item<Something> = Item::new("something");
+pub const METADATA: Item<Metadata> = Item::new("metadata");
+pub const WHITELIST: Map<Addr, bool> = Map::new("creator_whitelist");
+
+pub const ACTIVE_SET: Map<Addr, Lottery> = Map::new("active_set");
+pub const CLOSED_SET: Map<Addr, Lottery> = Map::new("closed_set");
 
 /// Initialize contract state data.
 pub fn initialize(
   deps: DepsMut,
   _env: &Env,
   _info: &MessageInfo,
-  msg: &InstantiateMsg,
-) -> Result<Something, ContractError> {
-  let something = Something {
-    value: msg.value.clone()
-  };
-  SOMETHING.save(deps.storage, &something)?;
-  Ok(something)
+  _msg: &InstantiateMsg,
+) -> Result<(), ContractError> {
+  METADATA.save(
+    deps.storage,
+    &Metadata {
+      active_lottery_count: 0,
+      closed_lottery_count: 0,
+    },
+  )?;
+  Ok(())
 }

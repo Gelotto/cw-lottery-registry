@@ -1,12 +1,12 @@
 [package]
-name = "cw_contract_template"
+name = "cw_lottery_registry"
 version = "0.14.0"
-authors = []
+authors = ["Daniel Gabriele <dgabriele@users.noreply.github.com>"]
 edition = "2018"
 description = "Smart Contract"
 license = "Apache-2.0"
-repository = ""
-homepage = ""
+repository = "https://github.com/Gelotto/cw-lottery-registry"
+homepage = "https://github.com/Gelotto/cw-lottery-registry"
 documentation = ""
 
 [lib]
