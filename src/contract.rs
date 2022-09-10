@@ -33,6 +33,7 @@ pub fn execute(
 ) -> Result<Response, ContractError> {
   match msg {
     ExecuteMsg::OnCreateLottery {
+      creator,
       code_id,
       addr,
       name,
@@ -48,6 +49,7 @@ pub fn execute(
       deps,
       env,
       info,
+      creator,
       code_id,
       addr,
       name,

@@ -13,6 +13,7 @@ pub struct InstantiateMsg {}
 #[serde(rename_all = "snake_case")]
 pub enum ExecuteMsg {
   OnCreateLottery {
+    creator: Addr,
     code_id: u32,
     addr: Addr,
     name: Option<String>,

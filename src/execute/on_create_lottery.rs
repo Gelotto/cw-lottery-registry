@@ -6,7 +6,8 @@ use cosmwasm_std::{attr, Addr, DepsMut, Env, MessageInfo, Response, Timestamp, U
 pub fn on_create_lottery(
   deps: DepsMut,
   _env: Env,
-  info: MessageInfo,
+  _info: MessageInfo,
+  creator: Addr,
   code_id: u32,
   addr: Addr,
   name: Option<String>,
@@ -20,7 +21,7 @@ pub fn on_create_lottery(
   duration_minutes: Option<u32>,
 ) -> Result<Response, ContractError> {
   // only whitelisted senders can register games
-  if !WHITELIST.has(deps.storage, info.sender) {
+  if !WHITELIST.has(deps.storage, creator.clone()) {
     return Err(ContractError::NotAuthorized {});
   }
 
