@@ -25,6 +25,7 @@ pub enum ExecuteMsg {
     funding_threshold: Option<Uint128>,
     winner_selection: WinnerSelection,
     duration_minutes: Option<u32>,
+    style: Style,
   },
   OnEndLottery {},
   OnBuyTickets {
@@ -48,6 +49,21 @@ pub enum QueryMsg {
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub struct MigrateMsg {}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+#[serde(rename_all = "snake_case")]
+pub enum BackgroundStyle {
+  Image { uri: String },
+  Color { hex: String },
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+#[serde(rename_all = "snake_case")]
+pub struct Style {
+  background: BackgroundStyle,
+  base_color: String,
+  speed_dial_color: String,
+}
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]

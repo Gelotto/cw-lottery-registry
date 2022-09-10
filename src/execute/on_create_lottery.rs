@@ -1,5 +1,6 @@
 use crate::error::ContractError;
 use crate::lottery::{Lottery, WinnerSelection};
+use crate::msg::Style;
 use crate::state::{ACTIVE_SET, CLOSED_SET, METADATA, WHITELIST};
 use cosmwasm_std::{attr, Addr, DepsMut, Env, MessageInfo, Response, Timestamp, Uint128};
 
@@ -19,6 +20,7 @@ pub fn on_create_lottery(
   funding_threshold: Option<Uint128>,
   winner_selection: WinnerSelection,
   duration_minutes: Option<u32>,
+  style: Style,
 ) -> Result<Response, ContractError> {
   // only whitelisted senders can register games
   if !WHITELIST.has(deps.storage, creator.clone()) {
@@ -35,6 +37,7 @@ pub fn on_create_lottery(
     deps.storage,
     addr.clone(),
     &Lottery {
+      style,
       addr: addr.clone(),
       code_id,
       name,

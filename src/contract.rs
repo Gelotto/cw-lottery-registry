@@ -45,6 +45,7 @@ pub fn execute(
       funding_threshold,
       winner_selection,
       duration_minutes,
+      style,
     } => execute::on_create_lottery(
       deps,
       env,
@@ -61,6 +62,7 @@ pub fn execute(
       funding_threshold,
       winner_selection,
       duration_minutes,
+      style,
     ),
     ExecuteMsg::OnEndLottery {} => execute::on_end_lottery(deps, env, info),
     ExecuteMsg::OnBuyTickets { new_ticket_count } => {

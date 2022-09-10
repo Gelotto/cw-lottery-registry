@@ -2,6 +2,8 @@ use cosmwasm_std::{Addr, Timestamp, Uint128};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
+use crate::msg::Style;
+
 /// WinnerSelection defines the number of and manner in which winners are chosen
 /// when a game ends.
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -21,6 +23,7 @@ pub enum WinnerSelection {
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct Lottery {
+  pub style: Style,
   pub code_id: u32,
   pub addr: Addr,
   pub name: Option<String>,
