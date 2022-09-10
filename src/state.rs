@@ -14,7 +14,6 @@ pub struct Metadata {
 
 pub const METADATA: Item<Metadata> = Item::new("metadata");
 pub const WHITELIST: Map<Addr, bool> = Map::new("creator_whitelist");
-
 pub const ACTIVE_SET: Map<Addr, Lottery> = Map::new("active_set");
 pub const CLOSED_SET: Map<Addr, Lottery> = Map::new("closed_set");
 
@@ -22,9 +21,13 @@ pub const CLOSED_SET: Map<Addr, Lottery> = Map::new("closed_set");
 pub fn initialize(
   deps: DepsMut,
   _env: &Env,
-  _info: &MessageInfo,
+  info: &MessageInfo,
   _msg: &InstantiateMsg,
 ) -> Result<(), ContractError> {
+  // auto-add registry creator to the lottery-creator whitelist
+  WHITELIST.save(deps.storage, info.sender.clone(), &true)?;
+
+  // init global lottery metadata
   METADATA.save(
     deps.storage,
     &Metadata {

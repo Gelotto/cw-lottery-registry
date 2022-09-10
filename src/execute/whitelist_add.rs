@@ -15,7 +15,7 @@ pub fn whitelist_add(
   WHITELIST.save(deps.storage, addr.clone(), &true)?;
 
   Ok(Response::new().add_attributes(vec![
-    attr("action", "add_address_to_whitelist"),
+    attr("action", "whitelist_add"),
     attr("addr", addr.clone().to_string()),
   ]))
 }

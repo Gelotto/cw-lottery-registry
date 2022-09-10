@@ -15,7 +15,7 @@ pub fn whitelist_remove(
   WHITELIST.remove(deps.storage, addr.clone());
 
   Ok(Response::new().add_attributes(vec![
-    attr("action", "add_address_to_whitelist"),
+    attr("action", "whitelist_remove"),
     attr("addr", addr.clone().to_string()),
   ]))
 }
